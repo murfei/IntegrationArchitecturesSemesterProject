@@ -1,0 +1,218 @@
+openapi: 3.0.3
+info:
+  title: Salesmen API
+  version: 1.0.0
+  description: REST API for managing salesmen and their social performance records (hard-coded data)
+
+servers:
+  - url: http://localhost:3000
+    description: Local development server
+
+paths:
+
+  /salesmen:
+    get:
+      summary: Get all salesmen
+      responses:
+        '200':
+          description: Returns a list of all salesmen
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SalesMan'
+    post:
+      summary: Create a new salesman
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SalesManInput'
+      responses:
+        '201':
+          description: Salesman created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SalesMan'
+        '400':
+          description: Invalid input
+
+  /salesmen/{id}:
+    get:
+      summary: Get a salesman by employeeId
+      parameters:
+        - name: id
+          in: path
+          description: Employee ID
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Salesman found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SalesMan'
+        '404':
+          description: Salesman not found
+    delete:
+      summary: Delete a salesman by employeeId
+      parameters:
+        - name: id
+          in: path
+          description: Employee ID
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Salesman deleted successfully
+        '404':
+          description: Salesman not found
+
+  /salesmen/{id}/performanceRecords:
+    get:
+      summary: Get all performance records for a salesman
+      parameters:
+        - name: id
+          in: path
+          description: Employee ID
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: List of performance records
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SocialPerformanceRecord'
+        '404':
+          description: Salesman not found
+    post:
+      summary: Add a performance record for a salesman
+      parameters:
+        - name: id
+          in: path
+          description: Employee ID
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SocialPerformanceRecordInput'
+      responses:
+        '201':
+          description: Performance record added
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SocialPerformanceRecord'
+        '400':
+          description: Performance record for year already exists
+        '404':
+          description: Salesman not found
+
+  /salesmen/{id}/performanceRecords/{year}:
+    delete:
+      summary: Delete a performance record by year
+      parameters:
+        - name: id
+          in: path
+          description: Employee ID
+          required: true
+          schema:
+            type: integer
+        - name: year
+          in: path
+          description: Year of the performance record
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Performance record deleted
+        '404':
+          description: Salesman not found
+
+components:
+  schemas:
+    SalesMan:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        nationality:
+          type: string
+        address:
+          type: string
+        employeeId:
+          type: integer
+        gender:
+          type: string
+        dateOfBirth:
+          type: string
+          format: date
+        performanceRecords:
+          type: array
+          items:
+            $ref: '#/components/schemas/SocialPerformanceRecord'
+
+    SalesManInput:
+      type: object
+      required:
+        - firstName
+        - lastName
+        - employeeId
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        nationality:
+          type: string
+        address:
+          type: string
+        employeeId:
+          type: integer
+        gender:
+          type: string
+        dateOfBirth:
+          type: string
+          format: date
+
+    SocialPerformanceRecord:
+      type: object
+      properties:
+        year:
+          type: integer
+        scores:
+          type: array
+          items:
+            type: integer
+        totalBonus:
+          type: number
+
+    SocialPerformanceRecordInput:
+      type: object
+      required:
+        - year
+        - scores
+      properties:
+        year:
+          type: integer
+        scores:
+          type: array
+          items:
+            type: integer
