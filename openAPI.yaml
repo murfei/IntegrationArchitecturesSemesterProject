@@ -32,7 +32,35 @@ paths:
                   dateOfBirth: 1990-01-01
                   performanceRecords:
                     - year: 2024
-                      scores: [8,7,9,8,10,9,7,8,6,7,9,10]
+                      performanceRecords:
+                        "Leadership Competence":
+                          Supervisor: 8
+                          Peer: 7
+                          Bonus: 0
+                        "Openness to Employees":
+                          Supervisor: 9
+                          Peer: 8
+                          Bonus: 0
+                        "Social Behaviour to Employees":
+                          Supervisor: 10
+                          Peer: 9
+                          Bonus: 0
+                        "Attitude towards Clients":
+                          Supervisor: 7
+                          Peer: 8
+                          Bonus: 0
+                        "Communication Skills":
+                          Supervisor: 6
+                          Peer: 7
+                          Bonus: 0
+                        "Integrity to Company":
+                          Supervisor: 9
+                          Peer: 10
+                          Bonus: 0
+                        "Average":
+                          Supervisor: 8
+                          Peer: 8
+                          Bonus: 0
                       totalBonus: 0
                 - firstName: Jane
                   lastName: Smith
@@ -105,7 +133,35 @@ paths:
                 dateOfBirth: 1990-01-01
                 performanceRecords:
                   - year: 2024
-                    scores: [8,7,9,8,10,9,7,8,6,7,9,10]
+                    performanceRecords:
+                      "Leadership Competence":
+                        Supervisor: 8
+                        Peer: 7
+                        Bonus: 0
+                      "Openness to Employees":
+                        Supervisor: 9
+                        Peer: 8
+                        Bonus: 0
+                      "Social Behaviour to Employees":
+                        Supervisor: 10
+                        Peer: 9
+                        Bonus: 0
+                      "Attitude towards Clients":
+                        Supervisor: 7
+                        Peer: 8
+                        Bonus: 0
+                      "Communication Skills":
+                        Supervisor: 6
+                        Peer: 7
+                        Bonus: 0
+                      "Integrity to Company":
+                        Supervisor: 9
+                        Peer: 10
+                        Bonus: 0
+                      "Average":
+                        Supervisor: 8
+                        Peer: 8
+                        Bonus: 0
                     totalBonus: 0
         '404':
           description: Salesman not found
@@ -145,7 +201,35 @@ paths:
                   $ref: '#/components/schemas/SocialPerformanceRecord'
               example:
                 - year: 2024
-                  scores: [8,7,9,8,10,9,7,8,6,7,9,10]
+                  performanceRecords:
+                    "Leadership Competence":
+                      Supervisor: 8
+                      Peer: 7
+                      Bonus: 0
+                    "Openness to Employees":
+                      Supervisor: 9
+                      Peer: 8
+                      Bonus: 0
+                    "Social Behaviour to Employees":
+                      Supervisor: 10
+                      Peer: 9
+                      Bonus: 0
+                    "Attitude towards Clients":
+                      Supervisor: 7
+                      Peer: 8
+                      Bonus: 0
+                    "Communication Skills":
+                      Supervisor: 6
+                      Peer: 7
+                      Bonus: 0
+                    "Integrity to Company":
+                      Supervisor: 9
+                      Peer: 10
+                      Bonus: 0
+                    "Average":
+                      Supervisor: 8
+                      Peer: 8
+                      Bonus: 0
                   totalBonus: 0
         '404':
           description: Salesman not found
@@ -166,7 +250,35 @@ paths:
               $ref: '#/components/schemas/SocialPerformanceRecordInput'
             example:
               year: 2025
-              scores: [9,8,10,9,9,10,8,7,8,9,9,10]
+              performanceRecords:
+                "Leadership Competence":
+                  Supervisor: 9
+                  Peer: 8
+                  Bonus: 0
+                "Openness to Employees":
+                  Supervisor: 10
+                  Peer: 9
+                  Bonus: 0
+                "Social Behaviour to Employees":
+                  Supervisor: 9
+                  Peer: 10
+                  Bonus: 0
+                "Attitude towards Clients":
+                  Supervisor: 8
+                  Peer: 7
+                  Bonus: 0
+                "Communication Skills":
+                  Supervisor: 8
+                  Peer: 9
+                  Bonus: 0
+                "Integrity to Company":
+                  Supervisor: 9
+                  Peer: 10
+                  Bonus: 0
+                "Average":
+                  Supervisor: 8
+                  Peer: 8
+                  Bonus: 0
       responses:
         '201':
           description: Performance record added
@@ -176,7 +288,35 @@ paths:
                 $ref: '#/components/schemas/SocialPerformanceRecord'
               example:
                 year: 2025
-                scores: [9,8,10,9,9,10,8,7,8,9,9,10]
+                performanceRecords:
+                  "Leadership Competence":
+                    Supervisor: 9
+                    Peer: 8
+                    Bonus: 0
+                  "Openness to Employees":
+                    Supervisor: 10
+                    Peer: 9
+                    Bonus: 0
+                  "Social Behaviour to Employees":
+                    Supervisor: 9
+                    Peer: 10
+                    Bonus: 0
+                  "Attitude towards Clients":
+                    Supervisor: 8
+                    Peer: 7
+                    Bonus: 0
+                  "Communication Skills":
+                    Supervisor: 8
+                    Peer: 9
+                    Bonus: 0
+                  "Integrity to Company":
+                    Supervisor: 9
+                    Peer: 10
+                    Bonus: 0
+                  "Average":
+                    Supervisor: 8
+                    Peer: 8
+                    Bonus: 0
                 totalBonus: 0
         '400':
           description: Performance record for year already exists
@@ -258,10 +398,17 @@ components:
       properties:
         year:
           type: integer
-        scores:
-          type: array
-          items:
-            type: integer
+        performanceRecords:
+          type: object
+          additionalProperties:
+            type: object
+            properties:
+              Supervisor:
+                type: integer
+              Peer:
+                type: integer
+              Bonus:
+                type: integer
         totalBonus:
           type: number
 
@@ -269,11 +416,49 @@ components:
       type: object
       required:
         - year
-        - scores
+        - performanceRecords
       properties:
         year:
           type: integer
-        scores:
-          type: array
-          items:
-            type: integer
+        performanceRecords:
+          type: object
+          description: Scores per category with Supervisor, Peer, and Bonus
+          additionalProperties:
+            type: object
+            properties:
+              Supervisor:
+                type: integer
+              Peer:
+                type: integer
+              Bonus:
+                type: integer
+          example:
+            "Leadership Competence":
+              Supervisor: 9
+              Peer: 8
+              Bonus: 0
+            "Openness to Employees":
+              Supervisor: 10
+              Peer: 9
+              Bonus: 0
+            "Social Behaviour to Employees":
+              Supervisor: 9
+              Peer: 10
+              Bonus: 0
+            "Attitude towards Clients":
+              Supervisor: 8
+              Peer: 7
+              Bonus: 0
+            "Communication Skills":
+              Supervisor: 8
+              Peer: 9
+              Bonus: 0
+            "Integrity to Company":
+              Supervisor: 9
+              Peer: 10
+              Bonus: 0
+            "Average":
+              Supervisor: 8
+              Peer: 8
+              Bonus: 0
+
