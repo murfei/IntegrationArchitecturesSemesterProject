@@ -22,6 +22,27 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/SalesMan'
+              example:
+                - firstName: John
+                  lastName: Doe
+                  nationality: German
+                  address: Berlin
+                  employeeId: 1
+                  gender: M
+                  dateOfBirth: 1990-01-01
+                  performanceRecords:
+                    - year: 2024
+                      scores: [8,7,9,8,10,9,7,8,6,7,9,10]
+                      totalBonus: 0
+                - firstName: Jane
+                  lastName: Smith
+                  nationality: US
+                  address: New York
+                  employeeId: 2
+                  gender: F
+                  dateOfBirth: 1992-05-10
+                  performanceRecords: []
+
     post:
       summary: Create a new salesman
       requestBody:
@@ -30,6 +51,14 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/SalesManInput'
+            example:
+              firstName: Alice
+              lastName: Johnson
+              nationality: UK
+              address: London
+              employeeId: 3
+              gender: F
+              dateOfBirth: 1995-03-15
       responses:
         '201':
           description: Salesman created successfully
@@ -37,6 +66,15 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SalesMan'
+              example:
+                firstName: Alice
+                lastName: Johnson
+                nationality: UK
+                address: London
+                employeeId: 3
+                gender: F
+                dateOfBirth: 1995-03-15
+                performanceRecords: []
         '400':
           description: Invalid input
 
@@ -57,6 +95,18 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SalesMan'
+              example:
+                firstName: John
+                lastName: Doe
+                nationality: German
+                address: Berlin
+                employeeId: 1
+                gender: M
+                dateOfBirth: 1990-01-01
+                performanceRecords:
+                  - year: 2024
+                    scores: [8,7,9,8,10,9,7,8,6,7,9,10]
+                    totalBonus: 0
         '404':
           description: Salesman not found
     delete:
@@ -93,6 +143,10 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/SocialPerformanceRecord'
+              example:
+                - year: 2024
+                  scores: [8,7,9,8,10,9,7,8,6,7,9,10]
+                  totalBonus: 0
         '404':
           description: Salesman not found
     post:
@@ -110,6 +164,9 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/SocialPerformanceRecordInput'
+            example:
+              year: 2025
+              scores: [9,8,10,9,9,10,8,7,8,9,9,10]
       responses:
         '201':
           description: Performance record added
@@ -117,6 +174,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SocialPerformanceRecord'
+              example:
+                year: 2025
+                scores: [9,8,10,9,9,10,8,7,8,9,9,10]
+                totalBonus: 0
         '400':
           description: Performance record for year already exists
         '404':
